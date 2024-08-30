@@ -353,4 +353,7 @@ __pycache__/
 .history/
 
 
+Puzzlesolver/wwwroot/images/
+
+
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Rider,ASPNETCore,VisualStudioCode,c#
