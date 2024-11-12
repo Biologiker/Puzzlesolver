@@ -740,6 +740,6 @@ FodyWeavers.xsd
 
 # Local History for Visual Studio Code
 .history/
-
+Puzzlesolver/wwwroot/images/*
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Rider,ASPNETCore,VisualStudio,VisualStudioCode,c#

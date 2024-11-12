@@ -18,7 +18,7 @@ namespace Puzzlesolver.Controllers
         {
             if (file != null && file.Length > 0)
             {
-                var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
                 if (!Directory.Exists(uploads))
                 {
                     Directory.CreateDirectory(uploads);
@@ -32,6 +32,11 @@ namespace Puzzlesolver.Controllers
                 }
 
                 ViewBag.git  = "Upload successful!";
+
+                ImageRecognition imageRecognition = new ImageRecognition();
+
+                String result = imageRecognition.ReadFile(filePath);
+
                 return View("Index");
             }
 
