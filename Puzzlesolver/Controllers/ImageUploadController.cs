@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 
 namespace Puzzlesolver.Controllers
 {
@@ -35,7 +32,7 @@ namespace Puzzlesolver.Controllers
 
                 ImageRecognition imageRecognition = new ImageRecognition();
 
-                String result = imageRecognition.ReadFile(filePath);
+                imageRecognition.ReadFile(filePath);
 
                 return View("Index");
             }

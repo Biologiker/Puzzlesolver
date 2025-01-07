@@ -1,28 +1,13 @@
-﻿using AForge;
-using AForge.Imaging;
-using AForge.Math.Geometry;
-using AForge.Math.Metrics;
-using Microsoft.AspNetCore.DataProtection.XmlEncryption;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OpenCvSharp;
-using OpenCvSharp.ImgHash;
-using System.Drawing;
-using System.IO;
-using System.Net.WebSockets;
-using System.Threading;
-using Tesseract;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Puzzlesolver.Controllers
 {
     public class ImageRecognition : Controller
     {
-        public ImageRecognition()
-        {
-            
-        }
+        public ImageRecognition(){}
 
-        public String ReadFile(String FilePath)
+        public void ReadFile(String FilePath)
         {
             Mat img = Cv2.ImRead(FilePath);
             Mat grayscaleImg = img.Clone();
@@ -78,12 +63,8 @@ namespace Puzzlesolver.Controllers
 
                     var dw = Cv2.GetTextSize(text, HersheyFonts.HersheySimplex, 0.35, 1, out baseline);
 
-
-                    //Cv2.FillPoly(img, contourArray, Scalar.LightBlue);
-                    //Cv2.DrawContours(img, contourArray, -1, Scalar.White, 1);
                     center.Y = center.Y + dw.Height / 2;
                     center.X = center.X - dw.Width / 2;
-                    //Cv2.PutText(img, counter.ToString(), center, HersheyFonts.HersheySimplex, 0.35, Scalar.Black, 1, LineTypes.Link8);
 
                     validContours.Add((contour, center, false, false));
                     counter++;
@@ -105,8 +86,6 @@ namespace Puzzlesolver.Controllers
 
                 var distance = firstContour.center.DistanceTo(validContour.center);
 
-                //Cv2.PutText(img, ((int)distance).ToString(), validContour.center, HersheyFonts.HersheySimplex, 0.35, Scalar.Red, 1, LineTypes.Link8);
-
                 minDistance = distance < minDistance ? distance : minDistance;
             }
 
@@ -115,16 +94,10 @@ namespace Puzzlesolver.Controllers
                 var x = (int)Math.Round((firstContour.center.X - validContour.center.X) / minDistance);
                 var y = (int)Math.Round((firstContour.center.Y - validContour.center.Y) / minDistance);
 
-                Cv2.PutText(img, x.ToString() + ',' + y.ToString(), validContour.center, HersheyFonts.HersheySimplex, 0.35, Scalar.Red, 1, LineTypes.Link8);
-
                 coordinates.Add((x, y));
             }
 
-            Cv2.ImShow("image ", img);
-            Cv2.WaitKey(0);
-            Cv2.DestroyAllWindows();
-
-            return "0";
+            return;
         }
     }
 }
