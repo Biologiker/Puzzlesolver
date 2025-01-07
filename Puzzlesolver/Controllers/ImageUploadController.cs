@@ -1,35 +1,53 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Puzzlesolver.Services;
 
-namespace Puzzlesolver.Controllers
+namespace Puzzlesolver.Controllers;
+
+public class ImageUploadController : Controller
 {
-    public class ImageUploadController : Controller
+    private readonly OcrService _ocrService;
+
+    public ImageUploadController()
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        _ocrService = new OcrService(); // Initialisierung des OCR-Dienstes
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile? file)
+    [HttpGet]
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Upload(IFormFile? file)
+    {
+        if (file != null && file.Length > 0 && (file.ContentType == "image/jpeg" || file.ContentType == "image/png"))
         {
-            if (file != null && file.Length > 0)
+            var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+            if (!Directory.Exists(uploads)) Directory.CreateDirectory(uploads);
+
+            var filePath = Path.Combine(uploads, file.FileName);
+
+            // Datei speichern
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
-                if (!Directory.Exists(uploads))
-                {
-                    Directory.CreateDirectory(uploads);
-                }
+                await file.CopyToAsync(fileStream);
+            }
 
-                var filePath = Path.Combine(uploads, file.FileName);
+            // Text mit Tesseract aus dem Bild extrahieren
+            var extractedText = _ocrService.ExtractTextFromImage(filePath);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
+            // Definiere den Pfad, wo die Textdatei gespeichert wird
+            var textFilePath = Path.Combine(uploads, Path.GetFileNameWithoutExtension(file.FileName) + ".txt");
 
-                ViewBag.git  = "Upload successful!";
+            // Speichern des extrahierten Textes in einer Datei
+            _ocrService.SaveTextToFile(extractedText, textFilePath);
 
+            // Rückmeldung an den Benutzer
+            ViewBag.ExtractedText = extractedText;
+            ViewBag.Message = $"Upload und Texterkennung erfolgreich! Text gespeichert unter: {textFilePath}";
+
+                //Square erkennung
                 ImageRecognition imageRecognition = new ImageRecognition();
 
                 imageRecognition.ReadFile(filePath);
@@ -37,8 +55,7 @@ namespace Puzzlesolver.Controllers
                 return View("Index");
             }
 
-            ViewBag.Message = "Upload failed!";
-            return View("Index");
-        }
+        ViewBag.Message = "Upload fehlgeschlagen! Nur Bilddateien (JPEG, PNG) sind erlaubt!";
+        return View("Index");
     }
 }

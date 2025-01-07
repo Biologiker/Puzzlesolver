@@ -1,0 +1,1 @@
+Error occurred: Failed to initialise tesseract engine.. See https://github.com/charlesw/tesseract/wiki/Error-1 for details.
