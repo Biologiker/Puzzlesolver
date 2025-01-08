@@ -15,9 +15,9 @@ namespace Puzzlesolver.Controllers
             Cv2.CvtColor(img, grayscaleImg, ColorConversionCodes.BGR2GRAY);
             Cv2.Threshold(grayscaleImg, grayscaleImg, 100, 250, ThresholdTypes.Triangle);
 
-            OpenCvSharp.Point[][] contours = Cv2.FindContoursAsArray(grayscaleImg, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
+            Point[][] contours = Cv2.FindContoursAsArray(grayscaleImg, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
 
-            List<(OpenCvSharp.Point[] contour, OpenCvSharp.Point center, bool fixedY, bool fixedX)> validContours = new();
+            List<(Point[] contour, Point center, bool fixedY, bool fixedX)> validContours = new();
 
             int counter = 0;
 
@@ -26,15 +26,15 @@ namespace Puzzlesolver.Controllers
                 int x = contour[0].X;
                 int y = contour[0].Y;
 
-                OpenCvSharp.Point[] approx = Cv2.ApproxPolyDP(contour, 0.07 * Cv2.ArcLength(contour, true), true);
+                Point[] approx = Cv2.ApproxPolyDP(contour, 0.14 * Cv2.ArcLength(contour, true), true);
 
                 if (approx.Length == 4)
                 {
-                    OpenCvSharp.Rect rect = Cv2.BoundingRect(contour);
+                    Rect rect = Cv2.BoundingRect(contour);
 
                     double ratio = (double)rect.Width / rect.Height;
 
-                    OpenCvSharp.Point[][] contourArray = new OpenCvSharp.Point[1][];
+                    Point[][] contourArray = new Point[1][];
 
                     contourArray[0] = contour;
 
@@ -55,13 +55,16 @@ namespace Puzzlesolver.Controllers
                     int cx = (int)Math.Round(moments.M10 / moments.M00);
                     int cy = (int)Math.Round(moments.M01 / moments.M00);
 
-                    var center = new OpenCvSharp.Point(cx, cy);
+                    var center = new Point(cx, cy);
 
                     string text = counter.ToString();
 
                     int baseline = 1;
 
                     var dw = Cv2.GetTextSize(text, HersheyFonts.HersheySimplex, 0.35, 1, out baseline);
+
+                    Cv2.FillPoly(img, contourArray, Scalar.LightBlue);
+                    Cv2.DrawContours(img, contourArray, -1, Scalar.White, 1);
 
                     center.Y = center.Y + dw.Height / 2;
                     center.X = center.X - dw.Width / 2;
@@ -82,7 +85,7 @@ namespace Puzzlesolver.Controllers
                 if (firstContour == validContour)
                 {
                     continue;
-                }
+            }
 
                 var distance = firstContour.center.DistanceTo(validContour.center);
 
@@ -94,8 +97,14 @@ namespace Puzzlesolver.Controllers
                 var x = (int)Math.Round((firstContour.center.X - validContour.center.X) / minDistance);
                 var y = (int)Math.Round((firstContour.center.Y - validContour.center.Y) / minDistance);
 
+                Cv2.PutText(img, x.ToString() + ',' + y.ToString(), validContour.center, HersheyFonts.HersheySimplex, 0.35, Scalar.Red, 1, LineTypes.Link8);
+
                 coordinates.Add((x, y));
             }
+
+            //Cv2.ImShow("image ", img);
+            //Cv2.WaitKey(0);
+            //Cv2.DestroyAllWindows();
 
             return;
         }
