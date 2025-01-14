@@ -47,13 +47,13 @@ public class ImageUploadController : Controller
             ViewBag.ExtractedText = extractedText;
             ViewBag.Message = $"Upload und Texterkennung erfolgreich! Text gespeichert unter: {textFilePath}";
 
-                //Square erkennung
-                ImageRecognition imageRecognition = new ImageRecognition();
+            //Square erkennung
+            ImageRecognition imageRecognition = new ImageRecognition();
 
-                imageRecognition.ReadFile(filePath);
+            List<(int, int)> coordinates = imageRecognition.ReadFile(filePath);
 
-                return View("Index");
-            }
+            return View("Index");
+        }
 
         ViewBag.Message = "Upload fehlgeschlagen! Nur Bilddateien (JPEG, PNG) sind erlaubt!";
         return View("Index");

@@ -7,7 +7,7 @@ namespace Puzzlesolver.Controllers
     {
         public ImageRecognition(){}
 
-        public void ReadFile(String FilePath)
+        public List<(int, int)> ReadFile(String FilePath)
         {
             Mat img = Cv2.ImRead(FilePath);
             Mat grayscaleImg = img.Clone();
@@ -106,7 +106,7 @@ namespace Puzzlesolver.Controllers
             //Cv2.WaitKey(0);
             //Cv2.DestroyAllWindows();
 
-            return;
+            return coordinates;
         }
     }
 }
