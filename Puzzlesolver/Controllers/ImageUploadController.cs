@@ -47,6 +47,11 @@ public class ImageUploadController : Controller
             ViewBag.ExtractedText = extractedText;
             ViewBag.Message = $"Upload und Texterkennung erfolgreich! Text gespeichert unter: {textFilePath}";
 
+            //Square erkennung
+            ImageRecognition imageRecognition = new ImageRecognition();
+
+            List<(int, int)> coordinates = imageRecognition.ReadFile(filePath);
+
             return View("Index");
         }
 
