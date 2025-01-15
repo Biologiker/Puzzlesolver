@@ -41,11 +41,11 @@ public class ImageUploadController : Controller
             var textFilePath = Path.Combine(uploads, Path.GetFileNameWithoutExtension(file.FileName) + ".txt");
 
             // Speichern des extrahierten Textes in einer Datei
-            _ocrService.SaveTextToFile(extractedText, textFilePath);
+            _ocrService.SaveTextToFile(extractedText);
 
             // Rückmeldung an den Benutzer
             ViewBag.ExtractedText = extractedText;
-            ViewBag.Message = $"Upload und Texterkennung erfolgreich! Text gespeichert unter: {textFilePath}";
+            ViewBag.Message = $"Upload und Texterkennung erfolgreich! Text gespeichert";
 
             //Square erkennung
             ImageRecognition imageRecognition = new ImageRecognition();

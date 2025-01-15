@@ -30,12 +30,15 @@ internal class Program
         return sqlite_conn;
     }
 
-    private static void CreateTable(SQLiteConnection conn, string tableName)
+    private static void CreateTable(SQLiteConnection conn)
     {
         SQLiteCommand sqlite_cmd;
-        var Createsql = "CREATE TABLE" + tableName + "(word VARCHAR(20), id INT PRIMARY KEY AUTOINCREMENT)";
+        var Createsql = "CREATE TABLE SampleTable (Col1 VARCHAR(20), Col2 INT)";
+        var Createsql1 = "CREATE TABLE SampleTable1 (Col1 VARCHAR(20), Col2 INT)";
         sqlite_cmd = conn.CreateCommand();
         sqlite_cmd.CommandText = Createsql;
+        sqlite_cmd.ExecuteNonQuery();
+        sqlite_cmd.CommandText = Createsql1;
         sqlite_cmd.ExecuteNonQuery();
     }
 
