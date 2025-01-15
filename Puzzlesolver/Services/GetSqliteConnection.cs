@@ -14,10 +14,13 @@ public abstract class GetSqliteConnection
     }
     public static SQLiteConnection GetConnection()
     {
-        SQLiteConnection sqLiteConnection = new SQLiteConnection("Data Source = database.db; Version = 3; New = True; Compress = True; ");
+        SQLiteConnection sqLiteConnection = new SQLiteConnection(@"Data Source=C:\Users\mo_ha\lf12\Puzzlesolver\SQLiteConnector\database.db;Version=3;Compress=True;");
         try
         {
             sqLiteConnection.Open();
+            var cmd = sqLiteConnection.CreateCommand();
+            cmd.CommandText = $"SELECT * FROM SampleTable;";
+            Console.WriteLine(cmd.ExecuteNonQuery());
         }
         catch (Exception e)
         {
@@ -30,14 +33,20 @@ public abstract class GetSqliteConnection
     
     public static void InsertWords(string tableName, List<string> data)
     {
-        SQLiteCommand sqLiteCommand = _connection.CreateCommand();
-        foreach (var value in data)
+        using (var command = _connection.CreateCommand())
         {
-            sqLiteCommand.CommandText = "INSERT INTO " + tableName + "(word) VALUES("+ value + ");";
-            sqLiteCommand.ExecuteNonQuery();
+            var sql = command.CommandText = $"INSERT INTO {tableName} (word) VALUES (@word);";
+            Console.WriteLine(sql);
+
+            foreach (var value in data)
+            {
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@word", value);
+                command.ExecuteNonQuery();
+            }
         }
-        
     }
+
 
 
     public static void RemoveData(string tableName)

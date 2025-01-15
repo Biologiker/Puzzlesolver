@@ -1,10 +1,6 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Collections.Generic; // Für die List<T>
 using Tesseract;
-using static Puzzlesolver.Services.GetSqliteConnection;
+
 
 namespace Puzzlesolver.Services
 {
@@ -33,27 +29,13 @@ namespace Puzzlesolver.Services
                 }
         }
 
-        public string CleanExtractedText(string text)
-        {
-            var wordList = Regex.Matches(text, @"\b[A-Za-zÄÖÜäöüß]+\b")
-                                .Cast<Match>()
-                                .Select(m => m.Value)
-                                .Where(word => 
-                                    word.Length > 2 &&                                   
-                                    !Regex.IsMatch(word, @"^[A-ZÄÖÜ]{2}$") &&           
-                                    word.ToLower() == word || word.ToUpper() == word) 
-                                .ToList();
-
-            return string.Join(" ,", wordList);
-        }
-
         public List<string> GetWordsAsList(string text)
         {
             var wordList = Regex.Matches(text, @"\b[A-Za-zÄÖÜäöüß]+\b")
                                 .Cast<Match>()
                                 .Select(m => m.Value)
                                 .Where(word => 
-                                    word.Length > 2 &&                                   
+                                    word.Length > 3 &&                                   
                                     !Regex.IsMatch(word, @"^[A-ZÄÖÜ]{2}$") &&           
                                     word.ToLower() == word || word.ToUpper() == word) 
                                 .ToList();
@@ -65,7 +47,7 @@ namespace Puzzlesolver.Services
         {
             try
             {
-                InsertWords("main.words", data);
+                InsertWords("words", data);
             }
             catch (Exception e)
             {

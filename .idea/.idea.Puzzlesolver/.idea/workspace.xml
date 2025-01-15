@@ -13,16 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0d6ab728-330c-44a2-8356-e02951b84426" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/dataSources/ac47597c-96fb-4d54-a23d-a7dd42353d9f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/dataSources/ac47597c-96fb-4d54-a23d-a7dd42353d9f.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Puzzlesolver/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Puzzlesolver.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzlesolver.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Puzzlesolver/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzlesolver/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Puzzlesolver/Controllers/ImageUploadController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzlesolver/Controllers/ImageUploadController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Puzzlesolver/Puzzlesolver.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzlesolver/Puzzlesolver.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Puzzlesolver/Services/GetSqliteConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzlesolver/Services/GetSqliteConnection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Puzzlesolver/Services/OcrService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Puzzlesolver/Services/OcrService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQLiteConnector/Properties/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SQLiteConnector/Properties/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLiteConnector/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/SQLiteConnector/database.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,27 +62,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.Puzzlesolver.executor&quot;: &quot;Run&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.23831776&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;words&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.Puzzlesolver.executor": "Run",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "XThreadsFramesViewSplitterKey": "0.23831776",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mongo&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mongo"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Puzzlesolver">
     <configuration name="CrosswordSolver" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -159,6 +155,7 @@
       <workItem from="1736764022971" duration="3586000" />
       <workItem from="1736847323240" duration="3816000" />
       <workItem from="1736940322228" duration="78000" />
+      <workItem from="1736946841391" duration="192000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -175,16 +172,42 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Puzzlesolver/Services/GetSqliteConnection.cs</url>
-          <line>15</line>
-          <properties documentPath="C:\Users\mo_ha\lf12\Puzzlesolver\Puzzlesolver\Services\getSqliteConnection.cs" containingFunctionPresentation="Method 'GetConnection'">
+          <line>44</line>
+          <properties documentPath="C:\Users\mo_ha\lf12\Puzzlesolver\Puzzlesolver\Services\GetSqliteConnection.cs" containingFunctionPresentation="Method 'InsertWords'">
             <startOffsets>
-              <option value="338" />
+              <option value="1351" />
             </startOffsets>
             <endOffsets>
-              <option value="339" />
+              <option value="1377" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Puzzlesolver/Services/GetSqliteConnection.cs</url>
+          <line>40</line>
+          <properties documentPath="C:\Users\mo_ha\lf12\Puzzlesolver\Puzzlesolver\Services\GetSqliteConnection.cs" containingFunctionPresentation="Method 'InsertWords'">
+            <startOffsets>
+              <option value="1184" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1211" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Puzzlesolver/Services/OcrService.cs</url>
+          <line>49</line>
+          <properties documentPath="C:\Users\mo_ha\lf12\Puzzlesolver\Puzzlesolver\Services\OcrService.cs" containingFunctionPresentation="Method 'SaveTextToFile'">
+            <startOffsets>
+              <option value="1744" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1771" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

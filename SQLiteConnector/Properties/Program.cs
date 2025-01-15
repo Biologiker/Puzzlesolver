@@ -17,7 +17,7 @@ internal class Program
     {
         SQLiteConnection sqlite_conn;
         // Create a new database connection:
-        sqlite_conn = new SQLiteConnection("Data Source = database.db; Version = 3; New = True; Compress = True; ");
+        sqlite_conn = new SQLiteConnection(@"Data Source=C:\Users\mo_ha\lf12\Puzzlesolver\SQLiteConnector\database.db;Version=3;Compress=True;");
         // Open the connection:
         try
         {

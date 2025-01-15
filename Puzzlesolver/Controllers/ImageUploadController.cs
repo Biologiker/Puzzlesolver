@@ -36,10 +36,7 @@ public class ImageUploadController : Controller
 
             // Text mit Tesseract aus dem Bild extrahieren
             var extractedText = _ocrService.ExtractTextFromImage(filePath);
-
-            // Definiere den Pfad, wo die Textdatei gespeichert wird
-            var textFilePath = Path.Combine(uploads, Path.GetFileNameWithoutExtension(file.FileName) + ".txt");
-
+            
             // Speichern des extrahierten Textes in einer Datei
             _ocrService.SaveTextToFile(extractedText);
 
