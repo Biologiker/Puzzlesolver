@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@puzzlesolver.x62el.mongodb.net">
   <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.53">
-    <root id="1">
-      <ServerVersion>7.0.12</ServerVersion>
-    </root>
+    <root id="1"/>
     <schema id="2" parent="1" name="admin">
       <LastIntrospectionLocalTimestamp>2024-08-30.09:13:29</LastIntrospectionLocalTimestamp>
     </schema>
