@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OpenCvSharp;
 using Puzzlesolver.Services;
 
 namespace Puzzlesolver.Controllers;
@@ -48,9 +49,13 @@ public class ImageUploadController : Controller
             ViewBag.Message = $"Upload und Texterkennung erfolgreich! Text gespeichert unter: {textFilePath}";
 
             //Square erkennung
-            ImageRecognition imageRecognition = new ImageRecognition();
+            ImageRecognitionController imageRecognition = new ImageRecognitionController();
 
-            List<(int, int)> coordinates = imageRecognition.ReadFile(filePath);
+            (List<(int x, int y, int pixelX, int pixelY)> coordinates, Mat img) readFileResult = imageRecognition.ReadFile(filePath);
+
+            SolvePuzzleController solvePuzzle = new SolvePuzzleController();
+
+            solvePuzzle.Solve(readFileResult.coordinates, readFileResult.img);
 
             return View("Index");
         }

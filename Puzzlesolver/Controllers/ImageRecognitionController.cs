@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenCvSharp;
+using System.Collections.Generic;
 
 namespace Puzzlesolver.Controllers
 {
-    public class ImageRecognition : Controller
+    public class ImageRecognitionController : Controller
     {
-        public ImageRecognition(){}
+        public ImageRecognitionController(){}
 
-        public List<(int, int)> ReadFile(String FilePath)
+        public (List<(int x, int y, int pixelX, int pixelY)>, Mat img) ReadFile(String FilePath)
         {
             Mat img = Cv2.ImRead(FilePath);
             Mat grayscaleImg = img.Clone();
@@ -78,7 +79,7 @@ namespace Puzzlesolver.Controllers
             var firstContour = validContours[0];
             var minDistance = firstContour.center.DistanceTo(validContours[validContours.Count - 1].center);
 
-            List<(int, int)> coordinates = new List<(int, int)>();
+            List<(int x, int y, int pixelX, int pixelY)> coordinates = new List<(int, int, int, int)>();
 
             foreach (var validContour in validContours)
             {
@@ -97,16 +98,24 @@ namespace Puzzlesolver.Controllers
                 var x = (int)Math.Round((firstContour.center.X - validContour.center.X) / minDistance);
                 var y = (int)Math.Round((firstContour.center.Y - validContour.center.Y) / minDistance);
 
-                Cv2.PutText(img, x.ToString() + ',' + y.ToString(), validContour.center, HersheyFonts.HersheySimplex, 0.35, Scalar.Red, 1, LineTypes.Link8);
+                //Cv2.PutText(img, x.ToString() + ',' + y.ToString(), validContour.center, HersheyFonts.HersheySimplex, 0.35, Scalar.Red, 1, LineTypes.Link8);
 
-                coordinates.Add((x, y));
+                coordinates.Add((x, y, validContour.center.X, validContour.center.Y));
+            }
+
+            List<(int x, int y, int pixelX, int pixelY)> flippedCoordinates = new List<(int x, int y, int pixelX, int pixelY)>();
+            int xMax = coordinates.MaxBy(x => x.Item1).Item1;
+            int yMax = coordinates.MaxBy(x => x.Item2).Item2;
+
+            foreach (var coordinate in coordinates)
+            {
+                flippedCoordinates.Add((xMax - coordinate.x, yMax - coordinate.y, coordinate.pixelX, coordinate.pixelY));
             }
 
             //Cv2.ImShow("image ", img);
             //Cv2.WaitKey(0);
             //Cv2.DestroyAllWindows();
-
-            return coordinates;
+            return (flippedCoordinates, img);
         }
     }
 }
