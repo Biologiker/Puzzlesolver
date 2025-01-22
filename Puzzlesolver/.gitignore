@@ -358,5 +358,5 @@ __pycache__/
 
 /wwwroot/images/
 
-
+ ../../.idea
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Rider,ASPNETCore,VisualStudioCode,c#
