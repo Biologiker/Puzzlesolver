@@ -13,104 +13,6 @@ namespace Puzzlesolver.Controllers
             int xMax = coordinates.MaxBy(x => x.Item1).Item1;
             int yMax = coordinates.MaxBy(x => x.Item2).Item2;
 
-            List<(int row, int col, char direction, int length)> wordPlacements = new List<(int row, int col, char direction, int length)>();
-
-            foreach (var coordinate in coordinates)
-            {
-                var y = coordinate.y;
-                var x = coordinate.x;
-
-                if (coordinates.FindAll((c) => {
-                    if(c.y == y + 1 && c.x == x)
-                    {
-                        return true;
-                    }
-                    
-                    return false; 
-                }).Count > 0 && coordinates.FindAll((c) => {
-                    if (c.y == y - 1 && c.x == x)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }).Count == 0)
-                {
-                    int length = 1;
-                    int i = y + 1;
-
-                    while (true)
-                    {
-                        if(coordinates.FindAll((c) => {
-                            if (c.y == i && c.x == x)
-                            {
-                                return true;
-                            }
-
-                            return false;
-                        }).Count > 0)
-                        {
-                            length++;
-                        } else
-                        {
-                            break;
-                        }
-
-                        i++;
-                    }
-
-                    wordPlacements.Add((y, x, 'V', length));
-                }
-
-
-                if (coordinates.FindAll((c) => {
-                    if (c.x == x + 1 && c.y == y)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }).Count > 0 && coordinates.FindAll((c) => {
-                    if (c.x == x - 1 && c.y == y)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }).Count == 0)
-                {
-                    int length = 1;
-                    int i = x + 1;
-
-                    while (true)
-                    {
-                        if (coordinates.FindAll((c) => {
-                            if (c.y == y && c.x == i)
-                            {
-                                return true;
-                            }
-
-                            return false;
-                        }).Count > 0)
-                        {
-                            length++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-
-                        i++;
-                    }
-
-                    wordPlacements.Add((y, x, 'H', length));
-                }
-            }
-
-            wordPlacements.Sort((x, y) => string.Compare(x.length.ToString(), y.length.ToString()));
-
-            var test = string.Join(',', wordPlacements);
-
             // Define a crossword grid initialized with empty spaces
             char[,] crosswordGrid = new char[yMax + 1, xMax + 1];
             for (int i = 0; i < crosswordGrid.GetLength(0); i++)
@@ -120,6 +22,40 @@ namespace Puzzlesolver.Controllers
                     crosswordGrid[i, j] = ' '; // Fill grid with spaces
                 }
             }
+
+
+            (int row, int col, char direction)[] wordPlacements =
+            {
+                (9, 6, 'V'), // ABER
+                (0, 8, 'V'), // BERG
+                (9, 2, 'V'), // NASE
+                (0, 12, 'V'), // TREU
+                (9, 0, 'H'), // EINES
+                (3, 10, 'H'), // GRUND
+                (7, 10, 'H'), // HUNDE
+                (11, 10, 'H'), // LEERE
+                (5, 0, 'H'), // LEGAL
+                (1, 0, 'H'), // LEISE
+                (0, 4, 'V'), // BEFEHL
+                (7, 0, 'V'), // BLEIBE
+                (7, 4, 'V'), // CASINO
+                (7, 14, 'V'), // EXTREM
+                (0, 0, 'V'), // GLOBAL
+                (0, 14, 'V'), // GNADEN
+                (7, 10, 'V'), // HOTELS
+                (0, 10, 'V'), // SINGLE
+                (0, 6, 'V'), // DOCUMENT
+                (0, 2, 'V'), // EINZIGER
+                (5, 12, 'V'), // MANIEREN
+                (5, 8, 'V'),  // NATIONEN
+                (9, 6, 'H'), // ADOPTIERT
+                (7, 0, 'H'), // BERICHTET
+                (11, 0, 'H'), // BESONDERE
+                (3, 0, 'H'), // BEZIEHUNG
+                (5, 6, 'H'), // EINNEHMEN
+                (1, 6, 'H'), // OPERIEREN
+            };
+
 
             // Define the words and their placement (row, column, direction)
             // Direction: 'H' = Horizontal, 'V' = Vertical
