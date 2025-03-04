@@ -14,7 +14,7 @@ public abstract class GetSqliteConnection
     }
     public static SQLiteConnection GetConnection()
     {
-        SQLiteConnection sqLiteConnection = new SQLiteConnection(@"Data Source=C:\Users\mo_ha\lf12\Puzzlesolver\SQLiteConnector\database.db;Version=3;Compress=True;");
+        SQLiteConnection sqLiteConnection = new SQLiteConnection(@"Data Source=../SQLiteConnector/database.db;Version=3;Compress=True;");
         try
         {
             sqLiteConnection.Open();
